@@ -20,3 +20,28 @@
 - _Address Calculation:_ reg + reg * (2 or 4 or 8) + some-value
     - RIP: addressing relative to instruction pointer
     
+## 2. Data
+- **Numbers**: binary for computers and hexadecimal for humans (coz compact)
+- **Text**   : ASCII
+    1. 1byte,  8bits
+    2. 1word,  2bytes, 16bits
+    3. 1dword, 4bytes, 32bit*s
+    4. 1qword, 8bytes, 64buts
+- **Arithmetic**: use 2's complement as it gives single occurence of zero
+    - negative values are represneted as large positive numbers that they would correlate to
+    - oxcafeb0ba: left most is the MOST SIGNIFICANT BIT and right most is the LEAST
+- **Disas**: 
+    - _objdump -d -M intel_: gives object dump of a binary with intel syntax (which is necessary for good health)
+    - _strace_: syscall tracer gives the system calls in the code
+
+## 3. I/O
+- rdi is the initial parameter while rdx is the xtra parameter
+- stack: 
+    1. number of arguments [rsp]
+    2. name of program [rsp + 8]
+    3. argument1 [rap + 16]
+
+## 4. Control Flow
+- register arithmetics: ```OPE R1, R2   ==>    R1 = R1 OPE R2```
+- we cannot directly read from or write to ```rip```
+
