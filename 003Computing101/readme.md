@@ -2,6 +2,7 @@
 
 - Notes:    https://web.stanford.edu/class/cs107/guide/x86-64.html
 - Syscalls: https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
+- playg:    https://app.x64.halb.it/
 
 ## 1. Memory
 - Stack fills from higher memory to lower memory (0xffffffff -> 0xbbbbbbbb)
@@ -44,4 +45,14 @@
 ## 4. Control Flow
 - register arithmetics: ```OPE R1, R2   ==>    R1 = R1 OPE R2```
 - we cannot directly read from or write to ```rip```
-
+- ``eb fe`` is an infinte loop in asm (JMP -2)
+- conditional JMP (ex jne, jnz etc) are based on last CMP (which is stored in the flags)
+- CMP can compare a register with immediate value or a memory pointer with immediate value but NOT two memory locations
+- dil: low-byte rdi
+- al:  low-byte rax
+- **jump-table**: used when the program has to explore a lot of different cases based on the input, so making a lot of cmp/jne clauses is notfeasible
+- STEPS TO DEBUG:
+    1. strings ./exe                    -> get all the important strings  [static  analysis]
+    2. objdump -d -M intel ./exe        -> lookat the disassembly         [static  analysis]
+    3. gbd  -q ./exe                    -> interact with the exe          [dynamic analysis]
+- Next level static analysis through Ghidra and next level dynamic analysis through r2.
