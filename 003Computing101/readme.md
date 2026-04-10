@@ -56,3 +56,26 @@
     2. objdump -d -M intel ./exe        -> lookat the disassembly         [static  analysis]
     3. gbd  -q ./exe                    -> interact with the exe          [dynamic analysis]
 - Next level static analysis through Ghidra and next level dynamic analysis through r2.
+
+## 5. Assembly Crash Course:
+- ```div``` : For the instruction div reg, the following happens:
+    1. rax = rdx:rax / reg
+    2. rdx = remainder
+    - rdx:rax means that rdx will be the upper 64-bits of the 128-bit dividend and rax will be the lower 64-bits of the 128-bit dividend.
+
+-  Upper-bytes
+    ```
+    MSB                                    LSB
+    +----------------------------------------+
+    |                   rax                  |
+    +--------------------+-------------------+
+                        |        eax        |
+                        +---------+---------+
+                                |   ax    |
+                                +----+----+
+                                | ah | al |
+                                +----+----+
+    ```
+
+- modulo: reg % 2^n == lower-n-bits of reg
+
