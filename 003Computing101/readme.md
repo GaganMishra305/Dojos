@@ -78,4 +78,34 @@
     ```
 
 - modulo: reg % 2^n == lower-n-bits of reg
+- ```push/pop reg```: pushes and pops value of register from the stack
+- ```jmp reg```: jumps the rip to point to the register address {relative, absolute, indirect jmps}
+- JMP tABLE:
+    ```assembly
+    .intel_syntax noprefix
 
+    cmp rdi, 3
+    ja default
+    jmp qword ptr [rsi + rdi*8]
+
+    default:
+    jmp qword ptr [rsi + 4*8]
+    ```
+
+- Loop:
+    ```asm
+    .intel_syntax noprefix
+    xor rax, rax        ; count = 0
+
+    cmp rdi, 0
+    je done             ; if rdi == 0, return 0
+
+    loop:
+    movzx rcx, byte ptr [rdi + rax]
+    cmp rcx, 0
+    je done
+    inc rax
+    jmp loop
+
+    done: 
+    ```
