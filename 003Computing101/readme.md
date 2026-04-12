@@ -112,6 +112,22 @@
     ```
 
 ## 6. Webserver
+```
+_start
+├── socket / bind / listen
+└── accept_loop
+    └── fork
+        ├── parent: close client fd, loop back
+        └── child:
+            ├── read request
+            ├── check first byte ('G' → GET, else POST)
+            ├── handle_get:  open→read→close file, write header+body
+            ├── handle_post: find body, open→write→close file, write header
+            └── send_done: close client, exit
+```
+
+- complete code in file
+
 ```assembly
     .intel_syntax noprefix
     .global _start
