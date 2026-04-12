@@ -2,6 +2,7 @@
 
 - Notes:    https://web.stanford.edu/class/cs107/guide/x86-64.html
 - Syscalls: https://blog.rchapman.org/posts/Linux_System_Call_Table_for_x86_64/
+- Faster lookup table: https://syscalls.mebeim.net/?table=x86/64/x64/latest
 - playg:    https://app.x64.halb.it/
 
 ## 1. Memory
@@ -109,3 +110,73 @@
 
     done: 
     ```
+
+## 6. Webserver
+```assembly
+    .intel_syntax noprefix
+    .global _start
+
+    .section .data
+    response: .ascii "HTTP/1.0 200 OK\r\n\r\n"
+
+    .section .text
+    _start:
+        # 1. socket
+        mov rdi, 2
+        mov rsi, 1
+        mov rdx, 0
+        mov rax, 41
+        syscall
+
+        # 2. bind
+        sub rsp, 16
+        mov word ptr  [rsp],   2
+        mov word ptr  [rsp+2], 0x5000
+        mov dword ptr [rsp+4], 0
+        mov qword ptr [rsp+8], 0
+        mov rdi, 3
+        mov rsi, rsp
+        mov rdx, 16
+        mov rax, 49
+        syscall
+
+        # 3. listen
+        mov rdi, 3
+        mov rsi, 0
+        mov rax, 50
+        syscall
+
+        # 4. accept
+        mov rdi, 3
+        mov rsi, 0
+        mov rdx, 0
+        mov rax, 43
+        syscall
+        mov rbx, rax                # save connected fd
+
+        # 5. read request
+        sub rsp, 4096               # buffer on stack
+        mov rdi, rbx
+        mov rsi, rsp
+        mov rdx, 4096
+        mov rax, 0                  # read syscall
+        syscall
+        add rsp, 4096               # restore stack
+
+        # 6. write response
+        mov rdi, rbx
+        lea rsi, [response]
+        mov rdx, 19
+        mov rax, 1
+        syscall
+
+        # 7. close
+        mov rdi, rbx
+        mov rax, 3                  # close syscall
+        syscall
+
+        # 8. exit
+        mov rdi, 0
+        mov rax, 60
+        syscall
+```
