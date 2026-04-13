@@ -196,3 +196,21 @@ _start
         mov rax, 60
         syscall
 ```
+
+## 7. Debugger
+- https://www.youtube.com/watch?v=r185fCzdw8Y : good walkthru
+- x ND: number and datatype
+    1. g: giant hex
+    2. i: instruction
+    3. d: signed digit
+    4. u: unsigned digit
+    5. a: address
+
+- b
+    1. using relative breakpoints is better than absolute breakpoints
+    2. b my_func + 40                  >>           b*0x505555
+
+- automation
+    1. we can automate using scripts
+    2. gdb -x scipt.gdb ./a.out
+    
