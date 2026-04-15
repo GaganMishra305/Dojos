@@ -14,4 +14,8 @@
     1. represents 6-bits for each character
     2. 4characters for 3bytes, 4:3 ratio, comapred to base16(hex) 2:1
     3. why nots base128? coz normal ascii has less than 128 characters
-    
+
+## 2. Web
+- HTTP
+    1. stateless communication protocol
+    2. works on tops of tcp
