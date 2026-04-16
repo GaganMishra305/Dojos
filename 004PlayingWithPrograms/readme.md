@@ -19,3 +19,8 @@
 - HTTP
     1. stateless communication protocol
     2. works on tops of tcp
+
+- netcat
+    1. allows to comunicate to anyserver
+    2. swiss army of net comm
+
