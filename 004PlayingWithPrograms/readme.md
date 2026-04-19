@@ -24,3 +24,8 @@
     1. allows to comunicate to anyserver
     2. swiss army of net comm
 
+- curl-flags
+    1. applying form data: -d
+    2. supporting redirec: -L
+    
+ 
