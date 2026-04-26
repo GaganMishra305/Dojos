@@ -28,4 +28,9 @@
     1. applying form data: -d
     2. supporting redirec: -L
     
+## 3. Exploiting programs
+- Privilege escalation
+    1. All about making uid=0 
+    2. SUID binaries and their vulnerabilities
+    3. 
  
